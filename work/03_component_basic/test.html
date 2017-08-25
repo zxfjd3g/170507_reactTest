@@ -18,7 +18,7 @@
 /*
 1. 自定义组件(Component) :
   1). 定义组件
-    //方式1: 工厂(无状态)函数(最简洁, 推荐使用)
+    //方式1: 工厂(无状态)函数(简单组件, 推荐使用)
     function MyComponent1() {
       return <h1>自定义组件标题11111</h1>
     }
@@ -29,7 +29,7 @@
       }
     }
     //方式3: ES5老语法(不推荐使用了)
-    var MyComponent2 = React.createClass({
+    var MyComponent2 = React.createClass({ // 配置对象
       render () {
         return <h1>自定义组件标题22222</h1>
       }
@@ -45,6 +45,30 @@
   2). 得到包含的虚拟DOM并解析为真实DOM
   3). 插入到指定的页面元素内部
 */
+
+  // 1. 定义组件
+  //方式1: 工厂(无状态)函数(简单组件, 推荐使用)
+  function MyComponent () {
+    return <h2>工厂(无状态)函数</h2>
+  }
+  //方式2: ES6类语法(复杂组件, 推荐使用)
+  class MyComponent2 extends React.Component {
+    render () {
+      return <h2>ES6类语法(复杂组件, 推荐使用)</h2>
+    }
+  }
+  //方式3: ES5老语法(不推荐使用了)
+  const MyComponent3 = React.createClass({
+    render () {
+      return <h2>EES5老语法(不推荐使用了)</h2>
+    }
+  })
+
+  // 2. 渲染组件标签
+  ReactDOM.render(<MyComponent />, document.getElementById('example1'))
+  ReactDOM.render(<MyComponent2 />, document.getElementById('example2'))
+  ReactDOM.render(<MyComponent3 />, document.getElementById('example3'))
+
 </script>
 </body>
 </html>

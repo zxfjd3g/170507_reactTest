@@ -184,6 +184,19 @@
 
 # git管理项目的流程
 ## 1. 本地管理
-  
+	创建.gitignore文件, 并指定需要忽略文件/文件夹
+	git init
+	git add *
+	git commit -m "init app"
 ## 2. 创建远程仓库
 ## 3. 推送到远程
+	git remote add origin https://github.com/zxfjd3g/170507_reactTest.git
+	git push origin master
+## 4. 修改代码
+	git add *
+	git commit -m "update"
+	git push origin master
+
+## 5. 你们
+	git clone https://github.com/zxfjd3g/170507_reactTest.git
+	git pull origin master
