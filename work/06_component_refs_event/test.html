@@ -38,6 +38,11 @@
         * 强制绑定this
         * 箭头函数(ES6模块化编码时才能使用)
     4. 问题: 如何给一个函数强制指定内部的this?
+      function test(){
+
+      }
+      test = test.bind(obj)
+      test()
     */
 
     /*
@@ -46,6 +51,44 @@
       2. 点击按钮, 提示第一个输入框中的值
       3. 当第2个输入框失去焦点时, 提示这个输入框中的值
     */
+
+    //定义组件
+    class MyComponent extends React.Component {
+
+      constructor(props) {
+        super(props) // 调用父类(Component)的构造函数
+        //console.log(this)
+        // 将自定义的函数强制绑定为组件对象
+        this.handleClick = this.handleClick.bind(this) // 将返回函数中的this强制绑定为指定的对象, 并没有改变原来的函数中的this
+      }
+
+      // 自定义的方法中的this默认为null
+      handleClick () {
+        // alert(this) //this默认是null, 而不是组件对象
+        // 得到输入框对象,
+        const input = this.refs.msg
+        //得到它的值, 并提示
+        alert(input.value)
+      }
+
+      handleBlur (event) {
+        alert(event.target.value)
+      }
+
+      render () {
+        return (
+          <div>
+            <input type="text" ref="msg"/>
+            <button onClick={this.handleClick}>提示输入数据</button>
+            <input type="text" placeholder="失去焦点提示数据" onBlur={this.handleBlur}/>
+          </div>
+        )
+      }
+    }
+
+    // 渲染组件标签
+    ReactDOM.render(<MyComponent/>, document.getElementById('example'))
+
   </script>
 </body>
 </html>
