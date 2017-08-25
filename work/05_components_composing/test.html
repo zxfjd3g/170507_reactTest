@@ -20,13 +20,49 @@
 
 <script type="text/babel">
   /*
-   1. 拆分组件: 拆分界面, 抽取组件
-     * 单个标题组件: Welcome
-     * 应用组件: App
-   2. 分析确定传递数据和数据类型
-     * Welcome: props.name  string
-     * App: props.names    array
+  1. 拆分组件: 拆分界面, 抽取组件
+    主组件: App
+    子组件: Welcome
+  2. 确定组件中的props
+   App: names/array
+   Welcome: name/string
    */
+  const names = ['feifei', 'xinxin', 'yiyi']
+
+  // 定义Welcome组件
+  class Welcome extends React.Component {
+
+    render () {
+      return <h1>Welcome {this.props.name}!</h1>
+    }
+  }
+  Welcome.propTypes = {
+    name: React.PropTypes.string.isRequired
+  }
+
+  // 定义App组件
+  class App extends React.Component {
+
+    render () {
+      return (
+        // 必须有根标签
+        <div>
+          {
+            // 根据数据数组生成一个标签的数组
+            this.props.names.map((name, index) => <Welcome name={name} key={index}/>)
+          }
+        </div>
+      )
+    }
+  }
+  App.propTypes = {
+    names: React.PropTypes.array.isRequired
+  }
+
+  // 渲染App组件标签到页面div中
+  ReactDOM.render(<App names={names}/>, document.getElementById('example'))
+
+
 
 </script>
 </body>
