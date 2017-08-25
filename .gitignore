@@ -1,0 +1,4 @@
+# 根目录下的.idea
+/.idea
+# 任意目录下的所有node_modules
+node_modules

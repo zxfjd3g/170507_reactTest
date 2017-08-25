@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>02_JSX_DEMO</title>
+</head>
+<body>
+<ul>
+  <li>A</li>
+  <li>B</li>
+  <li>C</li>
+</ul>
+<hr>
+
+<div id="example1"></div>
+<div id="example2"></div>
+
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/babel.min.js"></script>
+
+<script type="text/babel">
+  /*
+   功能: 动态展示列表数据
+   */
+  /*
+   技术点:
+   1). 使用JSX创建虚拟DOM
+   2). React能自动遍历显示数组中所有的元素
+   3). array.map()的使用
+   */
+
+  // 数据的数组
+  var names = ['Tom2', 'Jack2', 'Bob2']
+
+  // 数据的数组-->标签的数组
+  var lis = []
+  names.forEach((name, index) => lis.push(<li key={index}>{name}</li>))
+  // 创建虚拟DOM
+  const ul = <ul>{lis}</ul>
+
+  // 渲染虚拟DOM
+  ReactDOM.render(ul, document.getElementById('example1'))
+
+
+  const ul2 = <ul>{
+    names.map((name, index) => <li key={index}>{name}</li>)
+  }</ul>
+  ReactDOM.render(ul2, document.getElementById('example2'))
+
+</script>
+</body>
+</html>
