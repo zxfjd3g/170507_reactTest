@@ -30,7 +30,7 @@
   5. 对props中的属性值进行类型限制和必要性限制
     Person.propTypes = {
       name: React.PropTypes.string.isRequired,
-      age: React.PropTypes.number.isRequired
+      age: React.PropTypes.number
     }
   6. 扩展属性: 将对象的所有属性通过props传递
     <Person {...person}/>
@@ -53,6 +53,52 @@
     2). 如果年龄没有指定, 默认为18
   */
 
+  //1. 定义组件类
+  class Person extends React.Component {
+
+    render () {
+      console.log(this)
+      return (
+        <ul>
+          <li>姓名: {this.props.name}</li>
+          <li>性别: {this.props.sex}</li>
+          <li>年龄: {this.props.age}</li>
+        </ul>
+      )
+    }
+  }
+  // 对标签属性进行限制
+  Person.propTypes = {
+    name: React.PropTypes.string.isRequired,
+    sex: React.PropTypes.string,
+    age: React.PropTypes.number
+  }
+
+  //2. 渲染组件标签
+  const person = {
+    n: 'Tom',
+    sex: '女',
+    age: 18
+  }
+  ReactDOM.render(<Person name={person.n} sex={person.sex} age={person.age}/>,
+    document.getElementById('example'))
+
+  const person2 = {
+    myName: 'Tom',
+    sex: '女',
+    age: 18
+  }
+  ReactDOM.render(<Person sex={person2.sex} age={'abc'}/>,
+    document.getElementById('example2'))
+
+  function Fn() {
+    
+  }
+ /* Fn.xx = 123
+  Fn.prototype.yy = 'abc'
+  console.log(Fn.xx)
+  const fn = new Fn()
+  console.log(fn.yy)*/
 </script>
 </body>
 </html>

@@ -42,7 +42,7 @@
   3). 虚拟DOM元素必须有结束标签
 3. ReactDOM.render()渲染组件标签的基本流程
   1). React内部会创建组件实例对象
-  2). 得到包含的虚拟DOM并解析为真实DOM
+  2). 调用render()得到包含的虚拟DOM并解析为真实DOM
   3). 插入到指定的页面元素内部
 */
 
@@ -54,6 +54,7 @@
   //方式2: ES6类语法(复杂组件, 推荐使用)
   class MyComponent2 extends React.Component {
     render () {
+      console.log(this) // MyComponent2的实例对象
       return <h2>ES6类语法(复杂组件, 推荐使用)</h2>
     }
   }
