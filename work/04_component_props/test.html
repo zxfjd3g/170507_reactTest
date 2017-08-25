@@ -52,6 +52,21 @@
     1). 如果性别没有指定, 默认为男
     2). 如果年龄没有指定, 默认为18
   */
+/*
+  function test (...args) {
+
+  }
+  test(1, 'abc', true)
+  const arr1  = [1, 3, 5]
+  const arr2 = [6,...arr1, 9]
+  const obj = {
+    a: 1,
+    b: 2
+  }
+  const obj2 = {
+    c: 3,
+    ...obj
+  }*/
 
   //1. 定义组件类
   class Person extends React.Component {
@@ -74,13 +89,21 @@
     age: React.PropTypes.number
   }
 
+  // 指定属性的默认值
+  Person.defaultProps = {
+    sex: '男',
+    age: 18
+  }
+
   //2. 渲染组件标签
   const person = {
-    n: 'Tom',
+    name: 'Tom',
     sex: '女',
     age: 18
   }
-  ReactDOM.render(<Person name={person.n} sex={person.sex} age={person.age}/>,
+  /*ReactDOM.render(<Person name={person.name} sex={person.sex} age={person.age}/>,
+    document.getElementById('example'))*/
+  ReactDOM.render(<Person {...person}/>,
     document.getElementById('example'))
 
   const person2 = {
@@ -88,7 +111,7 @@
     sex: '女',
     age: 18
   }
-  ReactDOM.render(<Person sex={person2.sex} age={'abc'}/>,
+  ReactDOM.render(<Person name={person2.myName}  age={person2.age}/>,
     document.getElementById('example2'))
 
   function Fn() {
