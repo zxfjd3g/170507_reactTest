@@ -17,7 +17,7 @@
   </div>
   <hr>
 
-  <div id="example">在此实现页面效果和功能</div>
+  <div id="example"></div>
 
   <script src="../js/react.js"></script>
   <script src="../js/react-dom.js"></script>
@@ -44,47 +44,51 @@
       2). 如果输入的文本两边有空格, 去掉空格后添加
     */
 
-    // 应用组件: App
     class App extends React.Component {
+
       constructor (props) {
         super(props)
         // 初始化状态
         this.state = {
-          todos: ['吃饭', '睡觉', 'coding']
+          todos: ['下课', '吃饭', '过七夕']
         }
-        this.addTodo = this.addTodo.bind(this)
+        this.add = this.add.bind(this)
       }
 
-      addTodo (todo) {
+      add (todo) {
         const {todos} = this.state
         todos.unshift(todo)
-        // 更新状态
+        //更新状态
         this.setState({todos})
       }
+
       render () {
         const {todos} = this.state
         return (
           <div>
-            <TodoAdd addTodo={this.addTodo} size={todos.length}></TodoAdd>
-            <TodoList todos={todos}></TodoList>
+            <Add add={this.add} count={todos.length}></Add>
+            <List todos={todos}></List>
           </div>
         )
       }
     }
 
-    // 头部组件: TodoAdd
-    class TodoAdd extends React.Component {
+    class Add extends React.Component {
 
       constructor (props) {
         super(props)
-        this.handleClick = this.handleClick.bind(this)
+        this.addTodo = this.addTodo.bind(this)
       }
 
-      handleClick () {
-        // 得到输入的todo
-        const todo = this.refs.todoInput.value
-        // 将todo保存到todos
-        this.props.addTodo(todo)
+      addTodo () {
+        // 读取输入数据
+        const text = this.refs.todoInput.value.trim()
+        // 查检
+        if(!text) {
+          return
+        }
+        // 保存到todos
+        this.props.add(text)
         // 清除输入
         this.refs.todoInput.value = ''
       }
@@ -94,35 +98,38 @@
           <div>
             <h2>Simple TODO List</h2>
             <input type="text" ref="todoInput"/>
-            <button onClick={this.handleClick}>Add #{this.props.size}</button>
+            <button onClick={this.addTodo}>Add #{this.props.count}</button>
           </div>
         )
       }
     }
-    TodoAdd.propTypes = {
-      addTodo: React.PropTypes.func.isRequired,
-      size: React.PropTypes.number.isRequired
+    Add.propTypes = {
+      add: React.PropTypes.func.isRequired,
+      count: React.PropTypes.number.isRequired
     }
 
-    // 列表组件: TodoList
-    class TodoList extends React.Component {
+    class List extends React.Component {
 
       render () {
+        const {todos} = this.props
+
         return (
           <ul>
             {
-              this.props.todos.map((todo, index) => <li key={index}>{todo}</li>)
+              todos.map((todo, index) => <li key={index}>{todo}</li>)
             }
           </ul>
         )
       }
     }
-    TodoAdd.propTypes = {
+    List.propTypes = {
       todos: React.PropTypes.array.isRequired
     }
 
+
     // 渲染根组件标签
     ReactDOM.render(<App />, document.getElementById('example'))
+
   </script>
 </body>
 </html>
