@@ -15,6 +15,53 @@
    自定义组件:
    功能描述: 让指定的文本做显示/隐藏的动画
    */
+
+  class Fade extends React.Component {
+    constructor (props) {
+      super(props)
+      this.state = {
+        opacity: 1
+      }
+
+      this.removeComp = this.removeComp.bind(this)
+    }
+
+    componentDidMount () {// 在此方法中启动定时器/绑定监听/发送ajax请求
+      // 保存到当前组件对象中
+      this.intervalId = setInterval(function () {
+        console.log('--------')
+        // 得到当前opacity
+        let {opacity} = this.state
+        // 更新opacity
+        opacity -= 0.1
+        if(opacity<=0) {
+          opacity = 1
+        }
+        // 更新状态
+        this.setState({opacity})
+      }.bind(this), 200)
+    }
+
+    componentWillUnmount () {// 清除定时器/解除监听
+      clearInterval(this.intervalId)
+    }
+
+    removeComp () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('example'))
+    }
+
+
+    render() {
+      return (
+        <div>
+          <p style={{opacity:this.state.opacity}}>{this.props.content}</p>
+          <button onClick={this.removeComp}>移除组件</button>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<Fade content="情人节你过了吗?"/>, document.getElementById('example'))
 </script>
 </body>
 </html>
