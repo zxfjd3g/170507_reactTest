@@ -8,7 +8,7 @@ http.createServer(function (request, response) {
   //向浏览器端写头信息
   response.writeHead(200, {'Content-Type': 'text/html'});
   //渲染组件成标签结构字符串
-  const appHTML = renderToString(<App />);
+  const appHTML = renderToString(<App />); // '<div>测试React服务器</div>'
   //向浏览器返回结果
   response.end(appHTML);
 }).listen(8888);
