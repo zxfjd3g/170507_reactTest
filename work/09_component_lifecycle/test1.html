@@ -19,7 +19,7 @@
     * Unmount：被移出真实 DOM
   2. React 为每个状态都提供了两种勾子(hook)函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用
     * componentWillMount()
-    * componentDidMount() : 已插入真实DOM, 在render之后才会执行
+    * componentDidMount() : 已插入页面真实DOM, 在render之后才会执行
     * componentWillUpdate(object nextProps, object nextState)
     * componentDidUpdate(object prevProps, object prevState)
     * componentWillUnmount()
@@ -41,6 +41,53 @@
     * 可以在componentWillUnmount()做一些收尾工作: 停止监听
     * 生命周期还有一个方法(后面需要时讲): componentWillReceiveProps
   */
+
+  class MyComponent extends React.Component {
+    constructor (props) {
+      super(props)
+      console.log('constructor(): 创建组件对象')
+      this.state = {
+        name: 'Tom'
+      }
+    }
+
+    componentWillMount () {
+      console.log('componentWillMount(): 初始化将要挂载')
+
+      // 启动一个定时器, 更新状态
+      setTimeout(function () {
+        this.setState({name: Date.now()})
+      }.bind(this), 2000)
+      // 启动一个定时器, 移除组件
+      setTimeout(function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById('example'))
+      }, 4000)
+
+    }
+
+    render () {
+      console.log('render()')
+      return <p>{this.state.name}</p>
+    }
+
+    componentDidMount () {
+      console.log('componentDidMount(): 初始化已经挂载')
+    }
+
+    componentWillUpdate () {
+      console.log('componentWillUpdate(): 将要更新')
+    }
+
+    componentDidUpdate () {
+      console.log('componentDidUpdate(): 已经更新')
+    }
+
+    componentWillUnmount () {
+      console.log('componentWillUnmount(): 将要被移除')
+    }
+  }
+
+  ReactDOM.render(<MyComponent/>, document.getElementById('example'))
 </script>
 </body>
 </html>
