@@ -11,6 +11,7 @@
 <script src="../js/react-dom.js"></script>
 <script src="../js/babel.min.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.16.2/axios.js"></script>
+<script src="https://cdn.bootcss.com/fetch/2.0.3/fetch.js"></script>
 <script type="text/babel">
 
 /*
@@ -34,20 +35,37 @@
     }
 
     componentDidMount () {
-      // 发送ajax请求
       const url = `https://api.github.com/users2/${this.props.username}/gists`
-      axios.get(url)
-        .then(response => {
+      // 使用axios发送ajax请求
+     /* axios.get(url)
+        .then(response => {// 成功
           console.log(response)
           // 读取响应数据
           const url = response.data[0].html_url
           // 更新状态
           this.setState({url})
         })
-        .catch(function (error) {
-
+        .catch(function (error) { // 失败
           console.log('----', error);
-        })
+        })*/
+
+     fetch(url)
+       .then(
+         response => {
+           response.json().then(data => {
+             console.log('----', data)
+             // 读取响应数据
+             const url = data[0].html_url
+             // 更新状态
+             this.setState({url})
+           })
+         },
+         error => {
+           console.log('error')
+           alert(error.message)
+         }
+       )
+
     }
 
     render () {
